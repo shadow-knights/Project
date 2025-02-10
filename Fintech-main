@@ -1,0 +1,89 @@
+-- Create Tables
+CREATE TABLE customer_address (
+    CSTMR_ID int,
+    CSTMR_ADDR_COMPONENT_TYPE varchar(100),
+    CSTMR_ADDR_VALUE varchar(255),
+    CSTMR_EFCTV_DT date,
+    PRIMARY KEY (CSTMR_ID, CSTMR_ADDR_COMPONENT_TYPE)
+);
+
+CREATE TABLE customer_classification (
+    CSTCL_ID int PRIMARY KEY,
+    CSTCL_TYP varchar(100),
+    CSTCL_TYP_VALUE varchar(100),
+    CSTCL_EFCTV_DT date,
+    CSTCL_CRUD_VALUE char(1),
+    CSTCL_USER_ID varchar(100),
+    CSTCL_WS_ID varchar(100),
+    CSTCL_PRGM_ID varchar(100),
+    CSTCL_HOST_TS timestamp,
+    CSTCL_LOCAL_TS timestamp,
+    CSTCL_ACPT_TS timestamp,
+    CSTCL_ACPT_TS_UTC_OFST char(6),
+    CSTCL_UUID varchar(100)
+);
+
+CREATE TABLE customer_details (
+    CSTMR_ID int PRIMARY KEY,
+    CSTMR_TYP varchar(50),
+    CSTMR_NAME varchar(255),
+    CSTMR_DOB date,
+    CSTMR_STATUS varchar(50),
+    CSTMR_CONTACT varchar(50),
+    CSTMR_MOBILE varchar(15),
+    CSTMR_EMAIL varchar(100),
+    CSTMR_COUNTRY varchar(50),
+    CSTCL_ID int
+);
+
+CREATE TABLE customer_identification (
+    CSTID_ID int PRIMARY KEY,
+    CSTID_TYP varchar(100),
+    CSTID_ITEM varchar(100),
+    CSTID_EFCTV_DT date,
+    CSTCL_ID int
+);
+
+CREATE TABLE customer_name (
+    CSTMR_ID int,
+    CSTMR_NAME_COMPONENT_TYPE varchar(100),
+    CSTMR_NAME_VALUE varchar(255),
+    CSTMR_EFCTV_DT date,
+    PRIMARY KEY (CSTMR_ID, CSTMR_NAME_COMPONENT_TYPE)
+);
+
+CREATE TABLE customer_proof_of_identity (
+    CSTMR_ID int,
+    CSTID_TYPE varchar(100),
+    CSTID_VALUE varchar(100),
+    START_DATE date,
+    END_DATE date,
+    CSTMR_EFCTV_DT date,
+    PRIMARY KEY (CSTMR_ID, CSTID_TYPE)
+);
+
+-- Insert Data
+INSERT INTO customer_address (CSTMR_ID, CSTMR_ADDR_COMPONENT_TYPE, CSTMR_ADDR_VALUE, CSTMR_EFCTV_DT) VALUES
+(1, 'Home', '123 Main St, Springfield', '2023-01-01'),
+(1, 'Work', '456 Elm St, Springfield', '2023-01-01'),
+(2, 'Home', '789 Oak St, Springfield', '2023-02-01');
+
+INSERT INTO customer_classification (CSTCL_ID, CSTCL_TYP, CSTCL_TYP_VALUE, CSTCL_EFCTV_DT, CSTCL_CRUD_VALUE, CSTCL_USER_ID, CSTCL_WS_ID, CSTCL_PRGM_ID, CSTCL_HOST_TS, CSTCL_LOCAL_TS, CSTCL_ACPT_TS, CSTCL_ACPT_TS_UTC_OFST, CSTCL_UUID) VALUES
+(1, 'Type A', 'Regular Customer', '2023-01-01', 'A', 'user1', 'ws-1', 'program1', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '+05:30', 'uuid-1'),
+(2, 'Type B', 'Premium Customer', '2023-02-01', 'A', 'user2', 'ws-2', 'program2', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '+05:30', 'uuid-2');
+
+INSERT INTO customer_details (CSTMR_ID, CSTMR_TYP, CSTMR_NAME, CSTMR_DOB, CSTMR_STATUS, CSTMR_CONTACT, CSTMR_MOBILE, CSTMR_EMAIL, CSTMR_COUNTRY, CSTCL_ID) VALUES
+(1, 'Individual', 'John Doe', '1990-01-01', 'Active', '1234567890', '9876543210', 'john.doe@example.com', 'USA', 1),
+(2, 'Business', 'Jane Smith', '1985-05-15', 'Active', '0987654321', '1234567890', 'jane.smith@example.com', 'Canada', 2);
+
+INSERT INTO customer_identification (CSTID_ID, CSTID_TYP, CSTID_ITEM, CSTID_EFCTV_DT, CSTCL_ID) VALUES
+(1, 'Passport', 'P123456789', '2023-01-01', 1),
+(2, 'Driver License', 'D987654321', '2023-02-01', 2);
+
+INSERT INTO customer_name (CSTMR_ID, CSTMR_NAME_COMPONENT_TYPE, CSTMR_NAME_VALUE, CSTMR_EFCTV_DT) VALUES
+(1, 'Full Name', 'John Doe', '2023-01-01'),
+(2, 'Full Name', 'Jane Smith', '2023-02-01');
+
+INSERT INTO customer_proof_of_identity (CSTMR_ID, CSTID_TYPE, CSTID_VALUE, START_DATE, END_DATE, CSTMR_EFCTV_DT) VALUES
+(1, 'Passport', 'P123456789', '2023-01-01', '2025-01-01', '2023-01-01'),
+(2, 'Driver License', 'D987654321', '2023-02-01', '2024-02-01', '2023-02-01');
