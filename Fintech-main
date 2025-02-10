@@ -1,3 +1,11 @@
+-- Drop Tables if they exist
+DROP TABLE IF EXISTS customer_proof_of_identity;
+DROP TABLE IF EXISTS customer_name;
+DROP TABLE IF EXISTS customer_identification;
+DROP TABLE IF EXISTS customer_details;
+DROP TABLE IF EXISTS customer_classification;
+DROP TABLE IF EXISTS customer_address;
+
 -- Create Tables
 CREATE TABLE customer_address (
     CSTMR_ID int,
