@@ -1,0 +1,73 @@
+use springboot_db;
+
+-- Drop tables if they already exist
+DROP TABLE IF EXISTS CustomerProofOfId;
+DROP TABLE IF EXISTS CustomerIdentification;
+DROP TABLE IF EXISTS CustomerContactInformation;
+DROP TABLE IF EXISTS CustomerDetails;
+
+-- Create CustomerDetails table
+CREATE TABLE CustomerDetails (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    type VARCHAR(50) NOT NULL,
+    full_name VARCHAR(255) NOT NULL,
+    date_of_birth DATE NOT NULL,
+    status VARCHAR(50) NOT NULL,
+    mobile_no VARCHAR(15),
+    email_id VARCHAR(255),
+    country_origin VARCHAR(100),
+    effective_date DATETIME NOT NULL
+);
+
+-- Create CustomerContactInformation table
+CREATE TABLE CustomerContactInformation (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    customer_id BIGINT NOT NULL,
+    type INT NOT NULL,
+    value VARCHAR(255) NOT NULL,
+    effective_date DATETIME NOT NULL
+);
+
+-- Create CustomerIdentification table
+CREATE TABLE CustomerIdentification (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    customer_id BIGINT NOT NULL,
+    type INT NOT NULL,
+    item VARCHAR(255) NOT NULL,
+    effective_date DATETIME NOT NULL
+);
+
+-- Create CustomerProofOfId table
+CREATE TABLE CustomerProofOfId (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    customer_id BIGINT NOT NULL,
+    type INT NOT NULL,
+    value VARCHAR(255) NOT NULL,
+    effective_date DATETIME NOT NULL,
+    start_date DATETIME NOT NULL,
+    end_date DATETIME
+);
+
+-- Insert sample data into CustomerDetails
+INSERT INTO CustomerDetails (type, full_name, date_of_birth, status, mobile_no, email_id, country_origin, effective_date)
+VALUES 
+('INDIVIDUAL', 'John Doe', '1990-01-01', 'ACTIVE', '1234567890', 'john.doe@example.com', 'USA', '2023-01-01 00:00:00'),
+('BUSINESS', 'Jane Smith', '1985-05-15', 'INACTIVE', '0987654321', 'jane.smith@example.com', 'Canada', '2023-02-01 00:00:00');
+
+-- Insert sample data into CustomerContactInformation
+INSERT INTO CustomerContactInformation (customer_id, type, value, effective_date)
+VALUES 
+(1, 1, 'john.doe@example.com', '2023-01-01 00:00:00'),
+(2, 2, '0987654321', '2023-02-01 00:00:00');
+
+-- Insert sample data into CustomerIdentification
+INSERT INTO CustomerIdentification (customer_id, type, item, effective_date)
+VALUES 
+(1, 1, 'PASSPORT123', '2023-01-01 00:00:00'),
+(2, 2, 'DL456789', '2023-02-01 00:00:00');
+
+-- Insert sample data into CustomerProofOfId
+INSERT INTO CustomerProofOfId (customer_id, type, value, effective_date, start_date, end_date)
+VALUES 
+(1, 1, 'SSN123456789', '2023-01-01 00:00:00', '2023-01-01 00:00:00', '2033-01-01 00:00:00'),
+(2, 2, 'TAXID987654321', '2023-02-01 00:00:00', '2023-02-01 00:00:00', '2033-02-01 00:00:00');
